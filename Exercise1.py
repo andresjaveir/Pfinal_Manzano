@@ -56,7 +56,7 @@ def vel_verlet(pos, v, dt, Nparticles, cf, L, epsilon, sigma, F):     ## Velocit
                                 # force in the new position as well as the previous one to 
                                 # properly calculate the velocity
     v += (F+Fnew)*dt/2      ## The evolution of the velocity, using both forces
-    F, Upot = LJ_force(pos, Nparticles, cf, L, epsilon, sigma) ## We recalculate the force   
+    F = Fnew ## We update the force   
     
     return pos, v, F, Upot
 
