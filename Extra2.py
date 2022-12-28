@@ -47,7 +47,7 @@ def vel_verlet(pos, v, dt, Nparticles, cf, L, epsilon, sigma, F):     ## Velocit
     pos = pbc(pos + v*dt + F*dt**2/2, L)    
     Fnew = LJ_force(pos, Nparticles, cf, L, epsilon, sigma)
     v += (F+Fnew)*dt/2    
-    F = LJ_force(pos, Nparticles, cf, L, epsilon, sigma)    
+    F = Fnew  
     
     return pos, v, F
 
