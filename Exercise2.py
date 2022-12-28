@@ -60,7 +60,7 @@ def vel_verlet(pos, v, dt, Nparticles, cf, L, epsilon, sigma, F):     ## Velocit
     pos = pbc(pos + v*dt + F*dt**2/2, L)    
     Fnew, Upot, p = LJ_force(pos, Nparticles, cf, L, epsilon, sigma)
     v += (F+Fnew)*dt/2    
-    F, Upot, p = LJ_force(pos, Nparticles, cf, L, epsilon, sigma)    
+    F = Fnew   
     
     return pos, v, F, Upot, p
       
@@ -177,8 +177,8 @@ for i in range(Nsteps):
     k[5][i] = kinetic(v[5])
     
     ##  We measure the MSD  
-    MSD[0, i] = (1/Nparticles)*np.sum((pbc(r[0]-rinicial[0], L[0])**2))
-    MSD[1, i] = (1/Nparticles)*np.sum((pbc(r[5]-rinicial[1], L[5])**2))
+    MSD[0, i] = (1/Nparticles)*np.sum((pbc(r[0]-rinicial[0], L[0])**2)) ## We apply the pbc to the MSD, in case a particle jumps it doesn't calculate
+    MSD[1, i] = (1/Nparticles)*np.sum((pbc(r[5]-rinicial[1], L[5])**2)) # a wrong distance for the MSD
     
     
     if i%100 == 0: ## We save the positions of the particles every 100 iterations
